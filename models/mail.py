@@ -1,18 +1,19 @@
 from core.db import db
 
 
-class Permission(db.Model):
-    __tablename__ = 'permission'
+class Mail(db.Model):
+    __tablename__ = 'mail'
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
     title = db.Column(db.VARCHAR(128))
     content = db.Column(db.TEXT)
-
-
-class PermissionUser(db.Model):
-    __tablename__ = 'permission_user'
-    id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
-    permission_id = db.Column(db.INTEGER)
-    user_id = db.Column(db.INTEGER)
     create_time = db.Column(db.TIMESTAMP)
-    create_user = db.Column(db.INTEGER(db.INTEGER))
+    create_user = db.Column(db.INTEGER)
+
+
+class MailUser(db.Model):
+    __tablename__ = 'mail_user'
+    id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
+    mail_id = db.Column(db.INTEGER)
+    to_user = db.Column(db.INTEGER)
+    read_time = db.Column(db.TIMESTAMP)
     visible = db.Column(db.BOOLEAN, nullable=False, default=True)

@@ -11,7 +11,7 @@ class SignIn(db.Model):
     multiple_ip_flag = db.Column(db.BOOLEAN)
     create_time = db.Column(db.TIMESTAMP)
     last_update_time = db.Column(db.TIMESTAMP)
-    create_user = db.INTEGER(db.INTEGER)
+    create_user = db.Column(db.INTEGER(db.INTEGER))
     visible = db.Column(db.BOOLEAN, nullable=False)
 
 
