@@ -1,4 +1,5 @@
 from core.db import db
+from utils.model_to_dict import to_dict_tools
 
 
 class Problem(db.Model):
@@ -24,6 +25,13 @@ class Problem(db.Model):
     last_update_time = db.Column(db.TIMESTAMP)
     create_user = db.Column(db.INTEGER)
     visible = db.Column(db.BOOLEAN, nullable=False, default=True)
+
+    def __repr__(self):
+        return '<School %r>' % self.name
+
+    def to_dict(self):
+        dict_info = to_dict_tools(self)
+        return dict_info
 
 
 class ProblemTag(db.Model):
