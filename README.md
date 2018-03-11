@@ -30,6 +30,6 @@ python manager.py runserver
 
 If you not change host and port config. Server will run in localhost:5000
 
-Enter http://localhost:5000/api/ping in your browser.
+Enter http://localhost:5000/api/ping in your browser. (Spurious)
 
 You can 'run python manager.py test' in your shell to test project.
