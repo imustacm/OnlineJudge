@@ -14,5 +14,5 @@ class PermissionUser(db.Model):
     permission_id = db.Column(db.INTEGER)
     user_id = db.Column(db.INTEGER)
     create_time = db.Column(db.TIMESTAMP)
-    create_user = db.Column(db.INTEGER(db.INTEGER))
+    create_user = db.Column(db.INTEGER)
     visible = db.Column(db.BOOLEAN, nullable=False, default=True)

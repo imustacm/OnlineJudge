@@ -8,7 +8,7 @@ class ForumSection(db.Model):
     content = db.Column(db.TEXT)
     create_time = db.Column(db.TIMESTAMP)
     last_update_time = db.Column(db.TIMESTAMP)
-    create_user = db.Column(db.INTEGER(db.INTEGER))
+    create_user = db.Column(db.INTEGER)
     subject_number = db.Column(db.INTEGER, default=0)
     note_number = db.Column(db.INTEGER, default=0)
     visible = db.Column(db.BOOLEAN, nullable=False, default=True)

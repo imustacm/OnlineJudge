@@ -10,7 +10,7 @@ class Badge(db.Model):
     badge_type = db.Column(db.INTEGER)
     create_time = db.Column(db.TIMESTAMP)
     last_update_time = db.Column(db.TIMESTAMP)
-    create_user = db.Column(db.INTEGER(db.INTEGER))
+    create_user = db.Column(db.INTEGER)
     visible = db.Column(db.BOOLEAN, nullable=False)
 
 
@@ -21,7 +21,7 @@ class BadgeType(db.Model):
     get_flag = db.Column(db.BOOLEAN)
     create_time = db.Column(db.TIMESTAMP)
     last_update_time = db.Column(db.TIMESTAMP)
-    create_user = db.Column(db.INTEGER(db.INTEGER))
+    create_user = db.Column(db.INTEGER)
     visible = db.Column(db.BOOLEAN, nullable=False)
 
 

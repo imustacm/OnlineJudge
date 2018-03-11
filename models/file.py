@@ -15,7 +15,7 @@ class File(db.Model):
     file_name_out = db.Column(db.VARCHAR(128))
     create_time = db.Column(db.TIMESTAMP)
     last_update_time = db.Column(db.TIMESTAMP)
-    create_user = db.Column(db.INTEGER(db.INTEGER))
+    create_user = db.Column(db.INTEGER)
     visible = db.Column(db.BOOLEAN, nullable=False)
 
 
@@ -25,5 +25,5 @@ class FileType(db.Model):
     title = db.Column(db.VARCHAR(128))
     create_time = db.Column(db.TIMESTAMP)
     last_update_time = db.Column(db.TIMESTAMP)
-    create_user = db.Column(db.INTEGER(db.INTEGER))
+    create_user = db.Column(db.INTEGER)
     visible = db.Column(db.BOOLEAN, nullable=False)
