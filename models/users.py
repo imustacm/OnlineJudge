@@ -30,3 +30,18 @@ class Users(db.Model):
     reset_password_time = db.Column(db.TIMESTAMP)
     session_keys = db.Column(db.JSON)
     visible = db.Column(db.BOOLEAN, nullable=False, default=True)
+
+
+class UserGroup(db.Model):
+    __tablename__ = 'user_group'
+    id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
+    title = db.Column(db.VARCHAR(128))
+    visible = db.Column(db.BOOLEAN, nullable=False, default=True)
+
+
+class UserToGroup(db.Model):
+    __tablename__ = 'user_to_group'
+    id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.INTEGER)
+    user_group_id = db.Column(db.INTEGER)
+    visible = db.Column(db.BOOLEAN, nullable=False, default=True)

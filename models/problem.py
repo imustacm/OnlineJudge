@@ -27,12 +27,14 @@ class Problem(db.Model):
 
 
 class ProblemTag(db.Model):
+    __tablename__ = 'problem_tag'
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
     name = db.Column(db.VARCHAR(128))
     visible = db.Column(db.BOOLEAN, nullable=False, default=True)
 
 
 class ProblemToTag(db.Model):
+    __tablename__ = 'problem_to_tag'
     id = db.Column(db.INTEGER, autoincrement=True, primary_key=True)
     problem_id = db.Column(db.INTEGER)
     problem_tag_id = db.Column(db.INTEGER)
