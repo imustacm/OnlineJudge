@@ -1,0 +1,55 @@
+# your environment
+# default testing development production
+# 'default' 'testing' 'production' 'development'
+environment = 'default'
+
+
+class Config(object):
+    # SECRET_KEY = 'change this'
+
+    @classmethod
+    def init_app(cls, app):
+        pass
+
+
+class Mail(object):
+    # MAIL_SERVER = 'you mail server'
+    # MAIL_PORT = 465
+    # MAIL_USE_SSL = True
+    # MAIL_USERNAME = 'your mail username'
+    # MAIL_PASSWORD = None
+    # MAIL_SUBJECT_PREFIX = None
+    # MAIL_SENDER = None
+    # ADMIN = None
+    pass
+
+
+class Database:
+    # SQLALCHEMY_DATABASE_URI = 'postgresql://onlinejudge:onlinejudge@localhost/onlinejudge'
+    # 每次提交后自动提交数据库的变动
+    # SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+    # SQLALCHEMY_TRACK_MODIFICATIONS = True
+    pass
+
+
+class DevelopConfig(Config, Mail, Database):
+    DEBUG = True
+    ENV = 'development'
+
+
+class TestingConfig(Config, Database):
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'postgresql://onlinejudge:onlinejudge@localhost/onlinejudge_test'
+    ENV = 'testing'
+
+
+class ProductionConfig(Config, Database):
+    ENV = 'production'
+
+
+config = {
+    'development': DevelopConfig,
+    'testing': TestingConfig,
+    'production': ProductionConfig,
+    'default': DevelopConfig
+}
