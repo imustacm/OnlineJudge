@@ -14,6 +14,13 @@ class Config(object):
         pass
 
 
+class Redis(object):
+    REDIS_SENTINEL = [('localhost', 26379)]
+    REDIS_MASTER = 'mymaster'
+    REDIS_DB = 0
+    REDIS_KEY_PREFIX = 'onlinejudge_cache'
+
+
 class Mail(object):
     # MAIL_SERVER = 'you mail server'
     # MAIL_PORT = 465
@@ -34,18 +41,18 @@ class Database:
     pass
 
 
-class DevelopConfig(Config, Mail, Database):
+class DevelopConfig(Config, Mail, Database, Redis):
     DEBUG = True
     ENV = 'development'
 
 
-class TestingConfig(Config, Database):
+class TestingConfig(Config, Database, Redis):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = 'postgresql://onlinejudge:onlinejudge@localhost/onlinejudge_test'
     ENV = 'testing'
 
 
-class ProductionConfig(Config, Database):
+class ProductionConfig(Config, Database, Redis):
     ENV = 'production'
 
 

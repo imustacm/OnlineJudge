@@ -5,6 +5,7 @@ from flask_migrate import MigrateCommand
 
 from core import create_app
 from core.db import db
+from core.sentinel import sentinel
 from models import models
 
 app = create_app()
@@ -14,7 +15,7 @@ migrate = Migrate(app, db)
 
 @app.shell_context_processor
 def make_shell_context():
-    return dict(app=app, db=db, models=models)
+    return dict(app=app, db=db, models=models, sentinel=sentinel)
 
 
 manager.add_command('shell', Shell(make_context=make_shell_context))
