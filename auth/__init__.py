@@ -1,39 +1,43 @@
-import logging
+try:
+    import cPickle as pickle
+except ImportError:  # pragma: no cover
+    import pickle
 
 from flask import request
+import logging
 import jwt
 from jwt.exceptions import ExpiredSignatureError
 from jwt.exceptions import DecodeError
 
 from flask import current_app
 from utils.data import Data
+from core.sentinel import sentinel
+
+from functools import wraps
 
 
-def setup_jwt(app):
-    @app.before_request
-    def process_token():
-        key = current_app.config['SECRET_KEY']
+def login_require(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if not getattr(func, 'login_require', True):
+            return func(*args, **kwargs)
         token = request.cookies.get('jwt', request.headers.get('Authorization', 'a.b.c'))
+        secret_key = current_app.config['SECRET_KEY']
         try:
-            if request.path == "/api/ping":
-                return None
-            user_info = jwt.decode(token, key)
-            # jwt.decode(token, 'secret', options={‘verify_exp’: False})
-            # 上面的options设置不验证过期时间，如果不设置这个选项，token将在原payload中设置的过期时间后过期。
+            user_info = jwt.decode(token, secret_key)
+            username = user_info['user']
+            real_token = pickle.loads(sentinel.slave.get('login:%s' % username)).decode()
+            if real_token != token:
+                data = Data(data='Your JWT is invalid', status=401)
+                return data.to_response()
         except ExpiredSignatureError as e:
             logging.warning(e)
-            # data = Data(error='Your JWT has expired')
-            return None
-            return data.to_response(status=401)
+            data = Data(data='Your JWT has expired', status=401)
+            return data.to_response()
         except DecodeError as e:
             logging.warning(e)
-            # data = Data(error='Your JWT is invalid')
-            return None
-            return data.to_response(status=401)
+            data = Data(data='Your JWT is invalid', status=401)
+            return data.to_response()
+        return func(*args, **kwargs)
 
-    @app.before_request
-    def check_permission():
-        # 检查用户是否具有请求权限
-        # data = Data(error='You have not enough permission.')
-        return None
-        return data.to_response(status=403)
+    return wrapper

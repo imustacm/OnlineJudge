@@ -1,7 +1,13 @@
+# redis file
+sentinel.conf
+dump.rdb
+
+# project and ide config
 config.py
-# Byte-compiled / optimized / DLL files
 .idea
 .idea/
+
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
