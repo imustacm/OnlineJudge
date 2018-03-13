@@ -9,6 +9,7 @@
 5. redis-sentinel
 
 In you shell
+
 ```shell
 git clone https://github.com/imustacm/OnlineJudge.git
 cd OnlineJudge
@@ -21,10 +22,13 @@ redis-sentinel sentinel.conf &
 python manage.py shell
 ```
 In python shell
+
 ```python
 db.create_all()
 exit()
 ```
+> [Our Database docs](https://github.com/imustacm/docs/blob/master/Database.md)
+
 In you shell
 
 ```shell
