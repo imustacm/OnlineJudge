@@ -2,9 +2,9 @@ try:
     import cPickle as pickle
 except ImportError:  # pragma: no cover
     import pickle
+from functools import wraps
 
 from flask import request
-import logging
 import jwt
 from jwt.exceptions import ExpiredSignatureError
 from jwt.exceptions import DecodeError
@@ -12,8 +12,7 @@ from jwt.exceptions import DecodeError
 from flask import current_app
 from utils.data import Data
 from core.sentinel import sentinel
-
-from functools import wraps
+from core.logger import logger
 
 
 def login_require(func):
@@ -29,13 +28,14 @@ def login_require(func):
             real_token = pickle.loads(sentinel.slave.get('login:%s' % username)).decode()
             if real_token != token:
                 data = Data(data='Your JWT is invalid', status=401)
+                logger.info('Your JWT is different from redis')
                 return data.to_response()
         except ExpiredSignatureError as e:
-            logging.warning(e)
+            logger.info('Your JWT has expired. ' + str(e))
             data = Data(data='Your JWT has expired', status=401)
             return data.to_response()
         except DecodeError as e:
-            logging.warning(e)
+            logger.info('Your JWT is invalid. ' + str(e))
             data = Data(data='Your JWT is invalid', status=401)
             return data.to_response()
         return func(*args, **kwargs)

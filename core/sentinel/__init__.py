@@ -5,6 +5,7 @@ from redis import StrictRedis
 class Sentinel(object):
     def __init__(self, app=None):
         self.app = app
+        self.connection = None
         self.master = StrictRedis()
         self.slave = self.master
         if app is not None:
