@@ -16,7 +16,9 @@ flask注册蓝本, 在这里统一进行注册管理, 在项目创建app时调�
 
 
 def setup_bluepoints(app):
+    from api import auth_blueprint
+    app.register_blueprint(auth_blueprint)
     from api import problem_blueprint
-    from api import ping_blueprint
     app.register_blueprint(problem_blueprint)
+    from api import ping_blueprint
     app.register_blueprint(ping_blueprint)
