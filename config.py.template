@@ -8,6 +8,45 @@ class Config(object):
     # SECRET_KEY = 'change this'
     HOST = 'localhost'
     PORT = 5000
+    LOGGING_CONFIG = {
+        'version': 1,
+        'formatters': {
+            'file': {
+                'format': '%(asctime)s:%(levelname)s:%(pathname)s:%(funcName)s:%(lineno)d:%(message)s'
+            },
+            'console': {
+                'format': '<Logger>%(levelname)s:%(pathname)s:%(funcName)s:%(lineno)d:%(message)s'
+            }
+        },
+        'handlers': {
+            'console': {
+                'class': 'logging.StreamHandler',
+                'level': 'DEBUG',
+                'formatter': 'console'
+            },
+            'file': {
+                'class': 'logging.FileHandler',
+                'filename': 'logging.log',
+                'level': 'WARNING',
+                'formatter': 'file',
+                'encoding': 'utf-8'
+            },
+        },
+        'loggers': {
+            'production': {
+                'handlers': ['file'],
+                'level': 'WARNING',
+            },
+            'development': {
+                'handlers': ['console'],
+                'level': 'DEBUG'
+            },
+            'testing': {
+                'handlers': ['file'],
+                'level': 'WARNING'
+            }
+        }
+    }
 
     @classmethod
     def init_app(cls, app):
