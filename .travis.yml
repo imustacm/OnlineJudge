@@ -8,7 +8,6 @@ services:
 addons:
   postgresql: "10.0"
 before_install:
-    - redis-server
     - cp sentinel.conf.template sentinel.conf
     - redis-sentinel sentinel.conf
     - psql -c 'create user onlinejudge WITH PASSWORD 'onlinejudge';' -U postgres
