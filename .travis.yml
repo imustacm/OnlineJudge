@@ -1,11 +1,12 @@
 language: python
+sudo: required
 python:
     - "3.6"
 services:
     - redis-server
     - postgres
 addons:
-  postgresql: "10.0"
+  postgresql: "9.6"
 before_install:
     - cp sentinel.conf.template sentinel.conf
     - redis-server sentinel.conf --sentinel
