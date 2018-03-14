@@ -1,11 +1,11 @@
 # your environment
 # default testing development production
 # 'default' 'testing' 'production' 'development'
-environment = 'default'
+ENVIRONMENT = 'default'
 
 
 class Config(object):
-    # SECRET_KEY = 'change this'
+    SECRET_KEY = 'change this'
     HOST = 'localhost'
     PORT = 5000
     LOGGING_CONFIG = {

@@ -1,0 +1,24 @@
+language: python
+python:
+    - "3.6"
+services:
+    - redis-server
+    - redis-sentinel
+    - postgres
+addons:
+  postgresql: "10.0"
+before_install:
+    - redis-server
+    - cp sentinel.conf.template sentinel.conf
+    - redis-sentinel sentinel.conf
+    - psql -c 'create user onlinejudge WITH PASSWORD 'onlinejudge';' -U postgres
+    - psql -c 'create database onlinejudge owner onlinejudge;' -U postgres
+    - psql -c 'grant all privileges on database onlinejudge to onlinejudge;' -U postgres
+install:
+    - pip install -r requirements.txt
+    - cp config.py.template config.py
+    - python manage.py upgrade
+script:
+    - python run.py
+notifications:
+    email: false
