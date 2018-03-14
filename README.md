@@ -1,5 +1,6 @@
 # OnlineJudge
-![](https://travis-ci.org/imustacm/OnlineJudge.svg?branch=master)
+
+[![Build Status](https://travis-ci.org/imustacm/OnlineJudge.svg?branch=master)](https://travis-ci.org/imustacm/OnlineJudge)
 
 **requirement**
 
