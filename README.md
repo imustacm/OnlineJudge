@@ -1,9 +1,10 @@
 # OnlineJudge
+![](https://travis-ci.org/imustacm/OnlineJudge.svg?branch=master)
 
 **requirement**
 
 1. Ubuntu16.04 (em….other system we didn't test)
-2. postgres10
+2. postgres9.6
 3. python3
 4. redis
 5. redis-sentinel
