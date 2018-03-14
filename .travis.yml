@@ -17,7 +17,6 @@ install:
     - pip install -r requirements.txt
     - cp config.py.template config.py
     - python manage.py db upgrade
-script:
-    - python run.py
+script: true
 notifications:
     email: false
