@@ -9,9 +9,9 @@ addons:
 before_install:
     - cp sentinel.conf.template sentinel.conf
     - redis-server sentinel.conf --sentinel
-    - psql -c 'create user onlinejudge WITH PASSWORD 'onlinejudge';' -U postgres
-    - psql -c 'create database onlinejudge owner onlinejudge;' -U postgres
-    - psql -c 'grant all privileges on database onlinejudge to onlinejudge;' -U postgres
+    - psql -c "create user onlinejudge WITH PASSWORD 'onlinejudge';" -U postgres
+    - psql -c "create database onlinejudge owner onlinejudge;" -U postgres
+    - psql -c "grant all privileges on database onlinejudge to onlinejudge;" -U postgres
 install:
     - pip install -r requirements.txt
     - cp config.py.template config.py
