@@ -42,11 +42,15 @@ class Data(dict):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if 'data' not in kwargs:
-            raise DataException('Data must be given.')
+            if 'message' in kwargs:
+                self['data'] = None
+            else:
+                raise DataException('Data must be given.')
+        else:
+            self['data'] = kwargs['data']
         if 'status' not in kwargs:
             raise DataException('Status must be given.')
         self['status'] = kwargs['status']
-        self['data'] = kwargs['data']
         if 'message' in kwargs:
             self['message'] = kwargs['message']
 
