@@ -68,7 +68,7 @@ class Login(Resource):
             logger.warn(e)
             db.session.rollback()
             db.session.close()
-            
+
         if flag == 0:
             return data.to_response()
         else:
