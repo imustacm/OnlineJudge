@@ -3,7 +3,7 @@ from core.logger import logger
 
 from core.db import db
 from models import LoginLog
-from sqlalchemy import exc
+from sqlalchemy.exc import IntegrityError
 from flask import current_app, request
 from flask_restful import Resource
 from flask_restful import reqparse
@@ -30,7 +30,7 @@ parser.add_argument('password', type=str)
 class Login(Resource):
     @staticmethod
     def get():
-        data = Data(data="Not allow function", status=403)
+        data = Data(message="Not allow function", status=403)
         return data.to_response()
 
     @staticmethod
@@ -40,6 +40,8 @@ class Login(Resource):
         args = parser.parse_args()
         username = args['username']
         password = args['password']
+        if not username or not password:
+            return Data(message='Username or Password Error.', status=200).to_response()
         payload = {'exp': exp, 'user': username}  # JSON 数据
         token = jwt.encode(payload, secret_key)
         user = Users.query.filter_by(username=username).first()
@@ -49,12 +51,10 @@ class Login(Resource):
         login_log.create_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
         login_log.ip = request.remote_addr
 
-        flag = 0
         if not user or not user.verify_password(password):
-            data = Data(data='Username or Password Error.', status=200)
+            data = Data(message='Username or Password Error.', status=200).to_response()
             login_log.success_flag = False
         else:
-            flag = 1
             login_log.success_flag = True
             key = get_key_to_hash('login', username=username)
             sentinel.master.setex(key, DAY, pickle.dumps(token))
@@ -64,12 +64,9 @@ class Login(Resource):
         try:
             db.session.add(login_log)
             db.session.commit()
-        except exc.IntegrityError as e:
+        except IntegrityError as e:
             logger.warn(e)
             db.session.rollback()
             db.session.close()
 
-        if flag == 0:
-            return data.to_response()
-        else:
-            return data
+        return data

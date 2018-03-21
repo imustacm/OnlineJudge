@@ -1,6 +1,6 @@
 from flask import Flask
-from config import config
 
+from config import config
 from config import ENVIRONMENT
 from core.db import setup_db
 from core.blueprints import setup_bluepoints
