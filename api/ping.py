@@ -13,7 +13,11 @@ class Ping(Resource):
 
     @staticmethod
     def post():
-        echo = json.loads(request.get_data())
+        request_data = request.get_data().decode('utf8')
+        if request_data == '':
+            echo = None
+        else:
+            echo = json.loads(request_data)
         data = Data(message="It's OK, you post me", data=echo, status=200)
         return data.to_response()
 
