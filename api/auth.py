@@ -15,12 +15,11 @@ try:
 except ImportError:  # pragma: no cover
     import pickle
 
+from core.sentinel import sentinel
 from models.users import Users
 from utils.key_to_hash import get_key_to_hash
 from utils.data import Data
 from utils.time import DAY
-
-from core.sentinel import sentinel
 
 parser = reqparse.RequestParser()
 parser.add_argument('username', type=str)

@@ -57,16 +57,8 @@ class Data(dict):
     def to_response(self):
         status = self['status']
         response = make_response(jsonify(self), status)
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        response.headers['Access-Control-Allow-Methods'] = 'OPTIONS,PUT,GET,POST,DELETE'
-        response.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
         return response
 
 
 class DataException(Exception):
     pass
-
-
-if __name__ == "__main__":
-    data = Data()
-    print(data)

@@ -2,7 +2,6 @@ from flask import request
 from flask_restful import Resource
 from utils.data import Data
 from auth import login_require
-import json
 
 
 class Ping(Resource):
@@ -13,12 +12,8 @@ class Ping(Resource):
 
     @staticmethod
     def post():
-        request_data = request.get_data().decode('utf8')
-        if request_data == '':
-            echo = None
-        else:
-            echo = json.loads(request_data)
-        data = Data(message="It's OK, you post me", data=echo, status=200)
+        request_data = request.get_json()
+        data = Data(message="It's OK, you post me", data=request_data, status=200)
         return data.to_response()
 
 
@@ -27,11 +22,11 @@ class LoginPing(Resource):
 
     @staticmethod
     def get():
-        data = Data(data=["It's OK, you already login", request.args], status=200)
+        data = Data(message="It's OK, you already login", data=request.args, status=200)
         return data.to_response()
 
     @staticmethod
     def post():
-        echo = json.loads(request.get_data())
-        data = Data(message="It's OK, you already login", data=echo, status=200)
+        request_data = request.get_json()
+        data = Data(message="It's OK, you already login", data=request_data, status=200)
         return data.to_response()
