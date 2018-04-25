@@ -1,3 +1,5 @@
+# static_file
+static/captcha/*
 # redis file
 sentinel.conf
 dump.rdb

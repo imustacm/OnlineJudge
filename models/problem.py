@@ -27,7 +27,7 @@ class Problem(db.Model):
     visible = db.Column(db.BOOLEAN, nullable=False, default=True)
 
     def __repr__(self):
-        return '<School %r>' % self.name
+        return '<Problem %r>' % self.title
 
     def to_dict(self):
         dict_info = to_dict_tools(self)

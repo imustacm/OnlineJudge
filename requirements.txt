@@ -1,5 +1,6 @@
 alembic==0.9.8
 aniso8601==3.0.0
+captcha==0.2.4
 cffi==1.11.5
 click==6.7
 cryptography==1.7.2
@@ -13,6 +14,7 @@ itsdangerous==0.24
 Jinja2==2.10
 Mako==1.0.7
 MarkupSafe==1.0
+Pillow==5.0.0
 psycopg2-binary==2.7.4
 pyasn1==0.4.2
 pycparser==2.18

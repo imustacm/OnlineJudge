@@ -7,10 +7,14 @@ from core.blueprints import setup_bluepoints
 from core.sentinel import setup_sentinel
 from core.logger import setup_logging
 from core.response import OJResponse
+import io
+import sys
+
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')
 
 
 def create_app(config_name=ENVIRONMENT):
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder='../static', static_url_path='/assets')
     app.config.from_object(config[config_name])
     app.response_class = OJResponse
     setup_db(app)
