@@ -24,3 +24,5 @@ def setup_bluepoints(app):
     app.register_blueprint(ping_blueprint)
     from api import captcha_blueprint
     app.register_blueprint(captcha_blueprint)
+    from api import contest_blueprint
+    app.register_blueprint(contest_blueprint)

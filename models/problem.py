@@ -25,6 +25,8 @@ class Problem(db.Model):
     last_update_time = db.Column(db.TIMESTAMP)
     create_user = db.Column(db.INTEGER)
     visible = db.Column(db.BOOLEAN, nullable=False, default=True)
+    public_info = ['id', 'title', 'description', 'input', 'output', 'sample', 'hint', 'source', 'time_limit',
+                   'memory_limit', 'create_user']
 
     def __repr__(self):
         return '<Problem %r>' % self.title
