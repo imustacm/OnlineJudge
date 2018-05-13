@@ -10,6 +10,8 @@ from .auth import Login
 from .captcha_code import Captcha
 from .contest import *
 import api.contest
+from .submission import SubmissionNumber
+from .rank import RankNumber
 
 api_module_list = [api.contest]
 
@@ -23,6 +25,11 @@ captcha_blueprint = Blueprint('captcha_blueprint', __name__)
 captcha_api = Api(captcha_blueprint, prefix="/api/captcha")
 contest_blueprint = Blueprint('contest_blueprint', __name__)
 contest_api = Api(contest_blueprint, prefix="/api/contests")
+submission_blueprint = Blueprint('submission_blueprint', __name__)
+submission_api = Api(submission_blueprint, prefix="/api/status")
+rank_blueprint = Blueprint('rank_blueprint', __name__)
+rank_api = Api(rank_blueprint, prefix='/api/rank')
+
 
 api_map = {
     api.contest: contest_api
@@ -35,6 +42,10 @@ account_api.add_resource(Login, '/login')
 problem_api.add_resource(GetProblemById, '/problem')
 problem_api.add_resource(GetProblemList, '/problem_list')
 problem_api.add_resource(CountProblemNumber, '/problem_num')
+
+submission_api.add_resource(SubmissionNumber, '/status_num')
+
+rank_api.add_resource(RankNumber, '/rank_num')
 
 captcha_api.add_resource(Captcha, '/get')
 

@@ -26,3 +26,7 @@ def setup_bluepoints(app):
     app.register_blueprint(captcha_blueprint)
     from api import contest_blueprint
     app.register_blueprint(contest_blueprint)
+    from api import submission_blueprint
+    app.register_blueprint(submission_blueprint)
+    from api import rank_blueprint
+    app.register_blueprint(rank_blueprint)
