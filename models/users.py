@@ -40,8 +40,8 @@ class Users(db.Model):
 
     @password.setter
     def password(self, password):
-        md5 = hashlib.md5(password.encode()).hexdigest().encode()
-        self.password_hash = base64.b64encode(md5.decode())
+        md5 = hashlib.md5(password.encode()).hexdigest()
+        self.password_hash = base64.b64encode(md5.encode()).decode()
 
     def verify_password(self, password):
         md5 = hashlib.md5(password.encode()).hexdigest().encode()

@@ -6,19 +6,19 @@ from .ping import LoginPing
 from .problem import GetProblemById
 from .problem import GetProblemList
 from .problem import CountProblemNumber
-from .auth import Login
 from .captcha_code import Captcha
 from .contest import *
 import api.contest
 from .submission import SubmissionNumber
 from .rank import RankNumber
+from .user import Register
+from .user import Login
+from .user import Logout
 
 api_module_list = [api.contest]
 
 ping_blueprint = Blueprint('ping_blueprint', __name__)
 ping_api = Api(ping_blueprint, prefix="/api")
-account_blueprint = Blueprint('auth_blueprint', __name__)
-account_api = Api(account_blueprint, prefix="/api/account")
 problem_blueprint = Blueprint('problem_blueprint', __name__)
 problem_api = Api(problem_blueprint, prefix="/api/problems")
 captcha_blueprint = Blueprint('captcha_blueprint', __name__)
@@ -29,7 +29,8 @@ submission_blueprint = Blueprint('submission_blueprint', __name__)
 submission_api = Api(submission_blueprint, prefix="/api/status")
 rank_blueprint = Blueprint('rank_blueprint', __name__)
 rank_api = Api(rank_blueprint, prefix='/api/rank')
-
+user_blueprint = Blueprint('user_blueprint', __name__)
+user_api = Api(user_blueprint, prefix='/api/user')
 
 api_map = {
     api.contest: contest_api
@@ -37,7 +38,9 @@ api_map = {
 ping_api.add_resource(Ping, '/ping')
 ping_api.add_resource(LoginPing, '/login_ping')
 
-account_api.add_resource(Login, '/login')
+user_api.add_resource(Register, '/register')
+user_api.add_resource(Login, '/login')
+user_api.add_resource(Logout, '/logout')
 
 problem_api.add_resource(GetProblemById, '/problem')
 problem_api.add_resource(GetProblemList, '/problem_list')

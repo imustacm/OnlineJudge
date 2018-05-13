@@ -9,6 +9,8 @@ from flask_restful import Resource
 from flask_restful import reqparse
 
 import jwt
+from jwt.exceptions import ExpiredSignatureError
+from jwt.exceptions import DecodeError
 
 try:
     import cPickle as pickle
@@ -28,11 +30,6 @@ parser.add_argument('password', type=str)
 
 class Login(Resource):
     @staticmethod
-    def get():
-        data = Data(message="Not allow function", status=403)
-        return data.to_response()
-
-    @staticmethod
     def post():
         exp = int(time.time()) + DAY  # 失效时间
         secret_key = current_app.config['SECRET_KEY']
@@ -42,6 +39,7 @@ class Login(Resource):
         if not username or not password:
             return Data(message='Username or Password Error.', status=200).to_response()
         payload = {'exp': exp, 'user': username}  # JSON 数据
+
         token = jwt.encode(payload, secret_key)
         user = Users.query.filter_by(username=username).first()
 

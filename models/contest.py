@@ -1,4 +1,5 @@
 from core.db import db
+from utils.model_to_dict import to_dict_tools
 
 
 class Contest(db.Model):
