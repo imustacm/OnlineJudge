@@ -5,6 +5,8 @@ from auth import login_require
 
 
 class Ping(Resource):
+    url = '/ping'
+
     @staticmethod
     def get():
         data = Data(message="It's OK, you get me", data=request.args, status=200)
@@ -19,6 +21,7 @@ class Ping(Resource):
 
 class LoginPing(Resource):
     method_decorators = [login_require]
+    url = '/login_ping'
 
     @staticmethod
     def get():

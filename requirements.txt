@@ -1,10 +1,14 @@
 alembic==0.9.8
+amqp==2.3.2
 aniso8601==3.0.0
+billiard==3.5.0.4
 captcha==0.2.4
+celery==4.2.1
 cffi==1.11.5
 click==6.7
 cryptography==1.7.2
 Flask==0.12.2
+Flask-Celery-Helper==1.1.0
 Flask-Migrate==2.1.1
 Flask-RESTful==0.3.6
 Flask-Script==2.0.6
@@ -12,6 +16,7 @@ Flask-SQLAlchemy==2.3.2
 idna==2.6
 itsdangerous==0.24
 Jinja2==2.10
+kombu==4.2.1
 Mako==1.0.7
 MarkupSafe==1.0
 Pillow==5.0.0
@@ -25,4 +30,5 @@ pytz==2018.3
 redis==2.10.6
 six==1.11.0
 SQLAlchemy==1.2.4
+vine==1.1.4
 Werkzeug==0.14.1

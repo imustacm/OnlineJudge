@@ -54,15 +54,19 @@ class Config(object):
     def init_app(cls, app):
         pass
 
+class CeleryConfig(object):
+    CELERY_TASK_SERIALIZER = 'json'
+    CELERY_BROKER_URL = 'redis://localhost:6379/0'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
-class Redis(object):
+class RedisConfig(object):
     REDIS_SENTINEL = [('localhost', 26379)]
     REDIS_MASTER = 'mymaster'
     REDIS_DB = 0
     REDIS_KEY_PREFIX = 'onlinejudge_cache'
 
 
-class Mail(object):
+class MailConfig(object):
     # MAIL_SERVER = 'you mail server'
     # MAIL_PORT = 465
     # MAIL_USE_SSL = True
@@ -74,7 +78,7 @@ class Mail(object):
     pass
 
 
-class Database:
+class DatabaseConfig:
     SQLALCHEMY_DATABASE_URI = 'postgresql://onlinejudge:onlinejudge@localhost/onlinejudge'
     # 每次提交后自动提交数据库的变动
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
@@ -82,18 +86,18 @@ class Database:
     pass
 
 
-class DevelopConfig(Config, Mail, Database, Redis):
+class DevelopConfig(Config, MailConfig, DatabaseConfig, RedisConfig, CeleryConfig):
     DEBUG = True
     ENV = 'development'
 
 
-class TestingConfig(Config, Database, Redis):
+class TestingConfig(Config, DatabaseConfig, RedisConfig, CeleryConfig):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = 'postgresql://onlinejudge:onlinejudge@localhost/onlinejudge_test'
     ENV = 'testing'
 
 
-class ProductionConfig(Config, Database, Redis):
+class ProductionConfig(Config, DatabaseConfig, RedisConfig, CeleryConfig):
     ENV = 'production'
 
 
