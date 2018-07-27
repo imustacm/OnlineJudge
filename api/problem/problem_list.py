@@ -1,17 +1,13 @@
 # -*- utf-8 -*-
-import time
-
 from flask import request
 from werkzeug.exceptions import BadRequestKeyError
 from flask_restful import Resource
 
-from models.contest import Contest
+from models.problem import Problem
 from utils.data import Data
 
 
-class ContestList(Resource):
-    api_url = '/contest_list'
-
+class GetProblemList(Resource):
     @staticmethod
     def get():
         try:
@@ -28,21 +24,20 @@ class ContestList(Resource):
         except ValueError:
             data = Data(message='Invalid value of offset', status=422)
             return data.to_response()
-        results = Contest.query.order_by(Contest.id).filter_by(visible=True).limit(limit).offset(offset).all()
-        contest_list = []
+        results = Problem.query.order_by(Problem.id).filter_by(visible=True).limit(limit).offset(offset).all()
+        problem_list = []
         for item in results:
-            contest = {
+            problem = {
                 "id": item.id,
                 "title": item.title,
-                "start_time": item.start_time,
-                "end_time": item.end_time,
-                "type": item.permission_type
+                "source": item.source,
+                "submit_number": item.submit_number,
+                "accepted_number": item.accepted_number
             }
-            now = int(time.time())
-            if contest['end_time'] is None or now > contest['end_time']:
-                contest['status'] = 'end'
+            if item.submit_number == 0 or item.submit_number is None:
+                problem['ac_rate'] = 0
             else:
-                contest['status'] = 'running'
-            contest_list.append(contest)
-        data = Data(data=contest_list, status=200)
+                problem['ac_rate'] = item.accepted_number / item.submit_number
+            problem_list.append(problem)
+        data = Data(data=problem_list, status=200)
         return data.to_response()

@@ -35,7 +35,7 @@ class GetProblemList(Resource):
             return data.to_response()
         try:
             offset = int(request.args['offset'])
-        except AttributeError:
+        except BadRequestKeyError:
             offset = 0
         except ValueError:
             data = Data(message='Invalid value of offset', status=422)

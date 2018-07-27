@@ -44,10 +44,12 @@ class Login(Resource):
         user = Users.query.filter_by(username=username).first()
 
         login_log = LoginLog()
-        login_log.user_id = username
         login_log.create_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
         login_log.ip = request.remote_addr
-
+        if user is not None:
+            login_log.user_id = user.id
+        else:
+            login_log.user_id = 0
         if not user or not user.verify_password(password):
             data = Data(message='Username or Password Error.', status=200).to_response()
             login_log.success_flag = False

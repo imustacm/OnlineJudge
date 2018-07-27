@@ -17,6 +17,10 @@ class Register(Resource):
         try:
             user.username = request_data['username']
             user.password = request_data['password']
+            password_check = request_data['password_check']
+            if not user.verify_password(password_check):
+                data = Data(message='Bad request', status=400)
+                return data.to_response()
             user.email = request_data['email']
         except KeyError:
             data = Data(message='Bad request', status=400)

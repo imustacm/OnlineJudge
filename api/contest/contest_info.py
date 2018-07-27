@@ -8,7 +8,6 @@ from utils.data import Data
 
 
 class ContestInfo(Resource):
-    public_api = True
     api_url = '/contest_info'
 
     @staticmethod

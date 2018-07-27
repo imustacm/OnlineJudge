@@ -12,7 +12,6 @@ class CountContestNumber(Resource):
 
     # TODO: cache
     api_url = '/contest_num'
-    public_api = True
 
     @staticmethod
     def get():
